@@ -182,7 +182,7 @@ const getOrderDetails = (orderID) => {
                 resolve(order);
             })
             .catch((err) => {
-                resolve(order);
+                resolve(null);
             });
     })
 };

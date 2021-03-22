@@ -1,2 +1,32 @@
 // git ignore
 /server/node_modules
+
+# dependencies
+/client/node_modules
+/client/src/coreui-new
+/client/src/coreui-icons
+/client/src/coreui-charts
+
+# testing
+/client/coverage
+/client/src/coreui-new
+/client/src/coreui-icons
+/client/src/coreui-charts
+
+# production
+/client/build
+/client/src/coreui-new
+/client/src/coreui-icons
+/client/src/coreui-charts
+
+# misc
+/client/.DS_Store
+/client/.idea
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
+
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*

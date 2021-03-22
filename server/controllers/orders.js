@@ -91,6 +91,7 @@ exports.updateOrder = async (req, res, next) => {
     if (!orderDetails)
         return res.type('application/json').status(404).send({ message: 'Order not found' });
 
+    const userID = req.body.id_user || orderDetails.id_user;
     const productID = req.body.id_product || orderDetails.id_product;
     const Quantity = newQuantity || orderDetails.quantity;
 
@@ -104,6 +105,7 @@ exports.updateOrder = async (req, res, next) => {
     const { total, subtotal, discount, reduction } = calculateTotal(productDetails, Quantity);
 
     const body = {
+        id_user: userID,
         id_product: productID,
         quantity: Quantity,
         reduction: reduction,

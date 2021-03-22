@@ -10,7 +10,6 @@ const users = require("../adapters/users");
  * createOrder : create an order
  */
 exports.createOrder = async (req, res, next) => {
-    console.log(req.body)
     const {
         id_user: userID,
         id_product: productID,
@@ -56,7 +55,8 @@ exports.createOrder = async (req, res, next) => {
  * getOrders : list the orders
  */
 exports.getOrders = async (req, res, next) => {
-    const orderDetails = await getOrderList();
+    const { sort } = req.query;
+    const orderDetails = await getOrderList(sort);
     return res.type('application/json').status(200).send({ orders: orderDetails });
 }
 
@@ -187,7 +187,7 @@ const getOrderDetails = (orderID) => {
     })
 };
 
-const getOrderList = () => {
+const getOrderList = (sort) => {
     return new Promise((resolve, reject) => {
         orders.aggregate([
             {
@@ -214,6 +214,7 @@ const getOrderList = () => {
             },
         ]).exec(function (err, datas) {
             if (err) resolve(null);
+            if (sort > 0) datas = datas.filter(data => data.createdAt <= moment() && moment().subtract(sort, 'day') <= data.createdAt)
             const data = datas.map((data) => {
                 return {
                     ...data,
@@ -223,6 +224,7 @@ const getOrderList = () => {
                     updatedAt: moment(data.updatedAt).format('DD-MM-YYYY hh:mm a'),
                 }
             });
+
             resolve(data);
         });
     })

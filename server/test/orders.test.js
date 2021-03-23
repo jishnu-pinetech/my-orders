@@ -1,20 +1,18 @@
-const app = require('../server');
-const supertest = require("supertest");
+const controller = require('../controllers/orders');
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
+describe('Orders', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-test("List all the orders", async () => {
-  await supertest(app).get("/orders")
-    .expect(200)
-    .then((response) => {
-    });
-});
-
-test("Should not get order details for invalid orderID", async () => {
-  await supertest(app).get("/order/:orderID")
-    .expect(404)
-    .then((response) => {
-    });
+  it('should retrive orders', async () => {
+    const mReq = {
+      query: { sort: 0 }
+    };
+    const mRes = { status: jest.fn().mockReturnThis(), type: jest.fn().mockReturnThis(), send: jest.fn() };
+    const mNext = jest.fn();
+    await controller.getOrders(mReq, mRes, mNext);
+    expect(mRes.type).toBeCalledWith('application/json');
+    expect(mRes.status).toBeCalledWith(200);
+  });
 });

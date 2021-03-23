@@ -25,7 +25,7 @@ The server will be started in your localhost port 5000
  ### Test
  
  Unit test added for server/controller/orders/getOrders
- 
+ ``` cd server/ ```
  ``` npm test  ```
  
  

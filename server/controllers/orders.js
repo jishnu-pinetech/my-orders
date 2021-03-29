@@ -145,7 +145,7 @@ exports.removeOrder = (req, res, next) => {
 }
 
 const getUserDetails = (userID) => {
-    return new Promise((resolve, sa) => {
+    return new Promise((resolve, reject) => {
         users.findOne({
             _id: userID
         })
@@ -154,13 +154,13 @@ const getUserDetails = (userID) => {
                 resolve(user);
             })
             .catch((err) => {
-                resolve(user);
+                reject(err);
             });
     })
 };
 
 const getProductDetails = (productID) => {
-    return new Promise((resolve, sa) => {
+    return new Promise((resolve, reject) => {
         Products.findOne({
             _id: productID
         })
@@ -169,13 +169,13 @@ const getProductDetails = (productID) => {
                 resolve(product);
             })
             .catch((err) => {
-                resolve(product);
+                reject(err);
             });
     })
 };
 
 const getOrderDetails = (orderID) => {
-    return new Promise((resolve, sa) => {
+    return new Promise((resolve, reject) => {
         orders.findOne({
             _id: orderID
         })
@@ -184,7 +184,7 @@ const getOrderDetails = (orderID) => {
                 resolve(order);
             })
             .catch((err) => {
-                resolve(null);
+                reject(err);
             });
     })
 };
